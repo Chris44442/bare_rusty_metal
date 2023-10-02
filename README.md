@@ -13,7 +13,7 @@ For peripherals refer to the [Cyclone V Hard Processor System Technical Referenc
 To build the tool you need:
 - Host PC with Rust and Cargo installed
 - A cross compiler `rustup target add armv7a-none-eabi`
-- A device with an ARM Cortex-A9 or from the same family
+- A device with an ARM Cortex-A9 (or similar) running U-Boot (tested with SPL 2023.04)
 
 ## Build the tool
 
@@ -25,8 +25,22 @@ Run the `build.sh` script to build the tool using the `linker.ld` file. It will 
 
 ## How to use the tool
 
-You need a way to get the built raw binary file `ke` from your host PC to the ARM. Options include JTAG, TFTP, serial UART custom protocols or using the SD card.
+You need a way to copy the built raw binary file `ke` from your host PC to the ARM. Options include JTAG, TFTP, serial UART custom protocols or using the SD card.
 
-In my case I am using SSH to copy the file on the target device SD card when it runs buildroot Linux. After that I am rebooting the ARM to get back into the U-boot. Not exactly sensible considering the final product is not supposed to have a Linux running but o well.
+In my case I am using SSH to copy the file on the target device SD card when it runs buildroot Linux. After that I am rebooting the ARM to get back into the U-boot. Not exactly sensible considering the final product is not supposed to have a Linux running but o well. The easiest but also most annoying alternative is to simply copy the file over manually with an SD card reader.
 
-Run the 
+Modify and then run the `cp_to_arm.sh`.
+
+Boot into the U-Boot. To copy the binary from the SD card into the RAM, and then go from its address, run the following commands:
+
+```
+fatload mmc 0:1 01000000 ke
+go 01000000
+```
+
+It should say something like:
+
+```
+## Starting application at 0x01000000 ...
+## Application terminated
+```
