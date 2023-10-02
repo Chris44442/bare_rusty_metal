@@ -23,6 +23,8 @@ Run the `build.sh` script to build the tool using the `linker.ld` file. It will 
 ./build.sh
 ```
 
+If you need to make changes to the linker.ld file, be sure to delete the `target` folder, otherwise the compiler might skip recompiling.
+
 ## How to use the tool
 
 You need a way to copy the built raw binary file `ke` from your host PC to the ARM. Options include JTAG, TFTP, serial UART custom protocols or using the SD card.
