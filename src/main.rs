@@ -10,7 +10,7 @@ fn fast_sqrt (input: f64) -> f64 { // Famous Quake III "Fast inverse square root
   let y: f64 = unsafe { core::intrinsics::transmute(i) };
   let mut inv_sqrt = y * ( THREEHALFS - ( x2 * y * y ) ); // Newton–Raphson method
   inv_sqrt = inv_sqrt * ( THREEHALFS - ( x2 * inv_sqrt * inv_sqrt ) ); // use for more precision
-  inv_sqrt = inv_sqrt * ( THREEHALFS - ( x2 * inv_sqrt * inv_sqrt ) ); // use for more precision
+//   inv_sqrt = inv_sqrt * ( THREEHALFS - ( x2 * inv_sqrt * inv_sqrt ) ); // use for more precision
   inv_sqrt*input
 }
 
