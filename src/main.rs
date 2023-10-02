@@ -1,32 +1,22 @@
 #![no_std]
 #![no_main]
 
-use core::panic::PanicInfo;
-// use core::arch::asm;
-
 mod boot {
-    use core::arch::global_asm;
-        global_asm!(".section .text._start");
-
+  use core::arch::global_asm;
+  global_asm!(".section .text._start");
 }
-
 
 #[no_mangle]
 fn _start() {
-    unsafe {core::ptr::write_volatile(0x01100000 as *mut u32, 0xaffe1266 as u32);}
+  let abc = unsafe {core::ptr::read_volatile(0x01100004 as *mut u32)};
 
-    // for _ in 1..100000 {
-    //   unsafe {asm!("nop");}
-    // }
+  let bbb = abc as f64;
+  let ccc = libm::sqrt(bbb) as u32;
 
-
+  unsafe {core::ptr::write_volatile(0x01100008 as *mut u32, ccc as u32);}
 }
 
 #[panic_handler]
-fn panic (_info: &PanicInfo) -> ! {
-    loop {}
+fn panic (_info: &core::panic::PanicInfo) -> ! {
+  loop {}
 }
-
-// fatload mmc 0:1 01000000 ke
-// bootelf 01000000
-// go 0x01000000
