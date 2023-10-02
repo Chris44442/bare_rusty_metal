@@ -31,7 +31,11 @@ You need a way to copy the built raw binary file `ke` from your host PC to the A
 
 In my case I am using SSH to copy the file on the target device SD card when it runs buildroot Linux. After that I am rebooting the ARM to get back into the U-boot. Not exactly sensible considering the final product is not supposed to have a Linux running but o well. The easiest but also most annoying alternative is to simply copy the file over manually with an SD card reader.
 
-Modify and then run the `cp_to_arm.sh`.
+Modify and then run the `cp_to_arm.sh` script.
+
+```
+./cp_to_arm.sh
+```
 
 Boot into the U-Boot. To copy the binary from the SD card into the RAM at address 0x0100_0000, and then run from this address, run the following commands:
 
