@@ -31,11 +31,11 @@ In my case I am using SSH to copy the file on the target device SD card when it 
 
 Modify and then run the `cp_to_arm.sh`.
 
-Boot into the U-Boot. To copy the binary from the SD card into the RAM, and then go from its address, run the following commands:
+Boot into the U-Boot. To copy the binary from the SD card into the RAM at address 0x0100_0000, and then run from this address, run the following commands:
 
 ```
-fatload mmc 0:1 01000000 ke
-go 01000000
+fatload mmc 0:1 0x01000000 ke
+go 0x01000000
 ```
 
 It should say something like:
