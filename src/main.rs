@@ -21,13 +21,39 @@ mod boot {
 
 #[no_mangle]
 fn _start() {
+  // SQRT fun stuff
   let abc = unsafe {core::ptr::read_volatile(0x01100004 as *mut u32)};
-
   let bbb = libm::sqrt(abc as f64);
   let ccc = fast_sqrt(abc as f64);
-
   unsafe {core::ptr::write_volatile(0x01100008 as *mut u32, bbb as u32);}
   unsafe {core::ptr::write_volatile(0x0110000c as *mut u32, ccc as u32);}
+
+  // Sending Hello World because why not
+  let letters_to_send: [char; 13] = ['H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd', '!', '\n'];
+  for &letter in &letters_to_send {
+    while unsafe { core::ptr::read_volatile(0xFFC02014 as *const u32) } & 0x20 == 0 {}
+    let data_to_send = letter as u32;
+    unsafe {core::ptr::write_volatile(0xFFC02000 as *mut u32, data_to_send);}
+  }
+
+  let my_string: [u8; 8] = *b"AmFE1234";
+
+
+
+//   const letters_to_send1 = "AFFE1234".as_bytes(); 
+
+// let byte_array: &[u8] = letters_to_send1.as_bytes();
+
+  // let letters_to_send: [char; 1] = ['5'; abccc.chars().last().unwrap()];
+  for &letter in &my_string {
+    while unsafe { core::ptr::read_volatile(0xFFC02014 as *const u32) } & 0x20 == 0 {}
+    let data_to_send = letter as u32;
+    unsafe {core::ptr::write_volatile(0xFFC02000 as *mut u32, data_to_send);}
+  }
+
+
+
+
 }
 
 #[panic_handler]
