@@ -9,18 +9,18 @@ SECTIONS
 {
   .text :
   {
-      *(.text._start)
-      *(.text)
+    *(.text._start)
+    *(.text)
   } > RAM
 
   .rodata :
   {
-  *(.rodata)
+    *(.rodata)
   } > RAM
 
   .data :
   {
-  *(.data)
+    *(.data)
   } > RAM
 
   .bss :
