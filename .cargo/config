@@ -1,2 +1,3 @@
 [build]
 target = "armv7a-none-eabi"
+rustflags="-C target_cpu=cortex-a9"
