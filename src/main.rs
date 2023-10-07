@@ -1,6 +1,5 @@
 #![no_std]
 #![no_main]
-// #![feature(asm)]
 
 fn fast_sqrt (input: f64) -> f64 { // Famous Quake III "Fast inverse square root" algorithm implementation
   const MAGIC_U64: u64 = 0x5fe6ec85e7de30da;
@@ -14,12 +13,6 @@ fn fast_sqrt (input: f64) -> f64 { // Famous Quake III "Fast inverse square root
 //   inv_sqrt = inv_sqrt * ( THREEHALFS - ( x2 * inv_sqrt * inv_sqrt ) ); // use for more precision
   inv_sqrt*input
 }
-
-// fn my_sqrt(x: f32) -> f32 {
-//     let y;
-//     unsafe {core::arch::asm!("VSQRT.F32 {0}, {0}", inout(reg) x => y)}
-//     y
-// }
 
 mod boot {
   use core::arch::global_asm;
@@ -35,10 +28,7 @@ pub extern "C" fn _start() {
   unsafe {core::ptr::write_volatile(0x01100008 as *mut u32, bbb as u32);}
   unsafe {core::ptr::write_volatile(0x0110000c as *mut u32, ccc as u32);}
 
-  // let x: f32 = 16.0;
-  // let _result = my_sqrt(x);
-
-  //Hello World UART fun
+  // Hello World UART fun
   let my_string = *b"Hello World!\n";
   for &letter in &my_string {
     while unsafe { core::ptr::read_volatile(0xFFC02014 as *const u32) } & 0x20 == 0 {}
