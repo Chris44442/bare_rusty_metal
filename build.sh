@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cargo rustc -- -C link-arg=--script=./linker.ld
+cargo build
 
-arm-none-eabi-objcopy -O binary target/armv7a-none-eabi/debug/rusty_bare_metal ./ke
+arm-none-eabi-objcopy -O binary target/armv7a-none-eabi/debug/rusty_bare_metal ./bin
