@@ -19,7 +19,7 @@ mod boot {
 
 #[no_mangle]
 pub extern "C" fn _start() {
-  // SQRT fun stuff
+  // SQRT fun stuff hauhhuhu
   let abc = unsafe {core::ptr::read_volatile(0x01100004 as *mut u32)};
   let bbb = libm::sqrt(abc as f64);
   let ccc = abc as f64 * inv_sqrt(abc as f64);
